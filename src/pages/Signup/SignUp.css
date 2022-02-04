@@ -1,0 +1,30 @@
+.signup-container{
+     display: flex;
+     flex-direction: column;
+     gap: 30px;
+}
+.signup-heading{
+    font-weight: 700;
+}
+
+.signup-input{
+    color: #2f496e;
+    font-size: 15px;
+    border: none;
+}
+
+.p-float-label {
+    font-size: 15px;
+}
+.p-float-label ::after{
+    font-size: 20px;
+}
+.p-float-label > .p-inputtext {
+    color: #2f496e;
+    border: 0;
+    box-shadow: none;
+    width: 300px;
+    height: 35px;
+    font-size: 15px;
+    border-radius: 2px;
+}
