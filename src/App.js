@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     getCountryDetails().then(res => (
-      setApiDetails(res.data)
+      setApiDetails(res.data.countries)
     ));
   }, [])
 

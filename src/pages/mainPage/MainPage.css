@@ -50,9 +50,6 @@
 .mainpage-right-content{
     flex: 1;
     background-color: #f4eade;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .mainpage-content{
     flex: 1.2;
