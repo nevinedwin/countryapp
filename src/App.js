@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { routes } from './Core/Routes'
-import { getCountryDetails } from './CommonServices/services';
-export const CountryDetails = React.createContext()
+import StateProvider from './Core/Context';
+
+
+
 
 function App() {
 
-  const [apiDetails, setApiDetails] = useState({})
-
-  useEffect(() => {
-    getCountryDetails().then(res => (
-      setApiDetails(res.data.countries)
-    ));
-  }, [])
-
   return (
-    <CountryDetails.Provider value={apiDetails}>
+    <StateProvider>
       <Router>
         <Routes>
           {
@@ -29,7 +23,7 @@ function App() {
           }
         </Routes>
       </Router>
-    </CountryDetails.Provider>
+    </StateProvider>
   );
 }
 

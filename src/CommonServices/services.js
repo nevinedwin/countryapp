@@ -1,3 +1,4 @@
+import React from 'react'
 import axios from 'axios'
 import Validationcomponents from '../Components/Validationcomponents'
 
@@ -6,9 +7,19 @@ export const getCountryDetails = async () => {
 }
 
 
-export const validateEmil = (email)=>{
+export const validateEmail = (email, prevUsers)=>{
+    let flag = 0
     const regx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-z]{2,5}$/
-    return regx.test(String(email).toLowerCase());
+    if(regx.test(String(email).toLowerCase())){
+       prevUsers.map(eachUser=>{
+           if(eachUser.email === email){
+               flag = 1
+           }
+       })
+    }
+    if(flag === 0){
+        return true
+    }
 }
 
 export const validateUsername = (username)=>{

@@ -1,16 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './SignUp.css'
 import TextInput from '../../Components/TextInput'
 import DropdownWrapper from '../../Components/Dropdown';
 import ButtonWrapper from '../../Components/ButtonWrapper'
-import { CountryDetails } from '../../App'
-import { showValidation, validateEmil, validatePassword, validateUsername } from '../../CommonServices/services';
+import { showValidation, validateEmail, validatePassword, validateUsername } from '../../CommonServices/services';
 import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
+import { ACTION, StateDetails } from '../../Core/Context';
 
 
 const SignUp = () => {
 
-    const countryList = useContext(CountryDetails)
+    const stateData = useContext(StateDetails)
+    console.log(stateData);
+    const countryList = stateData.state.countryDetails
 
     const initialvalue = {
         username: '',
@@ -47,25 +49,27 @@ const SignUp = () => {
             ...prevData,
             [name]: value
         }))
-        console.log(input);
     }
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
         setOnSubmit(true)
+        console.log("submitted out");
 
-        if (validateUsername(input.username) && validateEmil(input.email) && validatePassword(input.password) && input.password === input.confirmPassword && !input.country === '') {
-            const userDetails = ManageLocalStorage.get('UserDetails')
-            userDetails.push(userDetails)
-            ManageLocalStorage.set('userDetails', input)
+        if (validateUsername(input.username) && validateEmail(input.email, stateData.state.userDetails) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
+            console.log("submitted in");
+            stateData.dispatch({type: ACTION.USERDETAILS, payload: input})
+            console.log('llll',stateData);
+            setOnSubmit(false)
             setInput(initialvalue)
+            console.log('ooooooooo');
         }
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={e=>handleSubmit(e)}>
                 <div className='signup-container'>
                     <h3 className='signup-heading'>Register</h3>
                     <span className="p-float-label signup-input">
@@ -90,7 +94,7 @@ const SignUp = () => {
                             onChange={(e) => handleChange(e)}
                         />
                         <label htmlFor='email'>Email</label>
-                        {onSubmit && !validateEmil(input.email) ? showValidation(true, 'Invalid Email') : showValidation(false)}
+                        {onSubmit && !validateEmail(input.email, stateData.state.userDetails) ? showValidation(true, 'Invalid Email/ Email already exists') : showValidation(false)}
                     </span>
                     <DropdownWrapper
                         className='signup-dropdown'
@@ -128,7 +132,7 @@ const SignUp = () => {
                         <label htmlFor='confirmPassword'>Confirm Password</label>
                         {onSubmit && validatePassword(input.password) && input.password !== input.confirmPassword ? showValidation(true, 'Password Does not Match') : showValidation(false)}
                     </span>
-                    <ButtonWrapper type='submit' label='Submit' />
+                    <ButtonWrapper type='submit' label='Submit' onClick={e=>handleSubmit(e)}/>
                 </div>
             </form>
         </>

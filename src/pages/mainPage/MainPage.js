@@ -7,7 +7,6 @@ import './MainPage.css'
 const ACTION = {
     LOGIN: 'login',
     SIGNUP: 'signup',
-    FORGET: 'forget'
 }
 
 const reducer = (state, action) => {
@@ -29,15 +28,6 @@ const reducer = (state, action) => {
                     forget: ''
                 }
             }
-
-        case 'forget':
-            return {
-                ...state, clicked: {
-                    login: '',
-                    signup: '',
-                    forget: 'apply'
-                }
-            }
     }
 }
 
@@ -48,7 +38,6 @@ const MainPage = () => {
         clicked: {
             login: 'apply',
             signup: '',
-            forget: ''
         }
     }
 
