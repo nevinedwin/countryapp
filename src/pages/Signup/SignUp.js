@@ -5,6 +5,7 @@ import DropdownWrapper from '../../Components/Dropdown';
 import ButtonWrapper from '../../Components/ButtonWrapper'
 import { CountryDetails } from '../../App'
 import { showValidation, validateEmil, validatePassword, validateUsername } from '../../CommonServices/services';
+import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
 
 
 const SignUp = () => {
@@ -49,24 +50,24 @@ const SignUp = () => {
         console.log(input);
     }
 
-    const selectCountry = (e)=>{
-        e.preventDefault()
-        setInput(prevData=>({
-            ...prevData,
-            country: e.target.value
-        }))
-    }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault()
         setOnSubmit(true)
+
+        if (validateUsername(input.username) && validateEmil(input.email) && validatePassword(input.password) && input.password === input.confirmPassword && !input.country === '') {
+            const userDetails = ManageLocalStorage.get('UserDetails')
+            userDetails.push(userDetails)
+            ManageLocalStorage.set('userDetails', input)
+            setInput(initialvalue)
+        }
     }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <div className='signup-container'>
-                    <h3 className='signup-heading'>Sign Up</h3>
+                    <h3 className='signup-heading'>Register</h3>
                     <span className="p-float-label signup-input">
                         <TextInput
                             id='username'
@@ -77,7 +78,7 @@ const SignUp = () => {
                             onChange={(e) => handleChange(e)}
                         />
                         <label htmlFor='username'>Username</label>
-                        {onSubmit && !validateUsername(input.username) ? showValidation(true, 'Invalid Username'): showValidation(false)}
+                        {onSubmit && !validateUsername(input.username) ? showValidation(true, 'Invalid Username') : showValidation(false)}
                     </span>
                     <span className="p-float-label signup-input">
                         <TextInput
@@ -89,8 +90,18 @@ const SignUp = () => {
                             onChange={(e) => handleChange(e)}
                         />
                         <label htmlFor='email'>Email</label>
-                        {onSubmit && !validateEmil(input.email) ? showValidation(true, 'Invalid Email'): showValidation(false)}
+                        {onSubmit && !validateEmil(input.email) ? showValidation(true, 'Invalid Email') : showValidation(false)}
                     </span>
+                    <DropdownWrapper
+                        className='signup-dropdown'
+                        value={input.country}
+                        options={countryList}
+                        optionLabel='name'
+                        name="country"
+                        placeholder='Choose a Country'
+                        onChange={(e) => handleChange(e)}
+                    />
+                    {onSubmit && input.country === '' && showValidation(true, 'Select your Country')}
                     <span className="p-float-label signup-input p-input-icon-right">
                         <i className={input.showPassword ? "pi pi-eye-slash cur" : "pi pi-eye cur"} onClick={showPassword} />
                         <TextInput
@@ -102,7 +113,7 @@ const SignUp = () => {
                             onChange={(e) => handleChange(e)}
                         />
                         <label htmlFor='password'>Password</label>
-                        {onSubmit && !validatePassword(input.password) ? showValidation(true, 'Invalid Password.\nPassword should contains 8-15charchters, no special characters are allowed.'): showValidation(false)}
+                        {onSubmit && !validatePassword(input.password) ? showValidation(true, 'Invalid Password.\nPassword should contains 8-15charchters, no special characters are allowed.') : showValidation(false)}
                     </span>
                     <span className="p-float-label signup-input p-input-icon-right">
                         <i className={input.showConfirmPassword ? "pi pi-eye-slash cur" : "pi pi-eye cur"} onClick={showConfirmPassword} />
@@ -115,17 +126,9 @@ const SignUp = () => {
                             onChange={(e) => handleChange(e)}
                         />
                         <label htmlFor='confirmPassword'>Confirm Password</label>
-                        {onSubmit && validatePassword(input.password) && input.password !== input.confirmPassword ? showValidation(true, 'Password Does not Match'): showValidation(false)}
+                        {onSubmit && validatePassword(input.password) && input.password !== input.confirmPassword ? showValidation(true, 'Password Does not Match') : showValidation(false)}
                     </span>
-                    <DropdownWrapper  
-                        value={input.country} 
-                        option={countryList}
-                        optionLabel='name'
-                        name="country"
-                        placeholder='Choose a Country'
-                        onChange={(e)=>{selectCountry(e)}}
-                         />
-                    <ButtonWrapper type='submit'/>
+                    <ButtonWrapper type='submit' label='Submit' />
                 </div>
             </form>
         </>
