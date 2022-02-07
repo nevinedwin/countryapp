@@ -50,7 +50,9 @@
     background-color: #f4eade;
     /* background-image:url('../../Assets/worldcollage.jpg'); */
     background-size: contain;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mainpage-switches{

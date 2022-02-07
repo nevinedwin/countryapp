@@ -7,34 +7,47 @@ export const getCountryDetails = async () => {
 }
 
 
-export const validateEmail = (email, prevUsers)=>{
-    let flag = 0
+export const validateEmail = (email, prevUsers) => {
     const regx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-z]{2,5}$/
-    if(regx.test(String(email).toLowerCase())){
-       prevUsers.map(eachUser=>{
-           if(eachUser.email === email){
-               flag = 1
-           }
-       })
-    }
-    if(flag === 0){
-        return true
-    }
+    return (regx.test(String(email).toLowerCase()))
 }
 
-export const validateUsername = (username)=>{
+export const validateUsername = (username) => {
     const regx = /^[a-zA-Z0-9]+$/
     return regx.test(String(username))
 }
 
-export const validatePassword = (password)=>{
+export const validatePassword = (password) => {
     const regx = /^[a-zA-Z0-9]{6,15}$/
     return regx.test(String(password))
 }
 
-export const showValidation =(isShow, message)=>{
-    if(isShow ){
-        return(
-        <Validationcomponents isShow={isShow} message={message}/>
-    )}return;    
+export const loginIn = (email, password, allUsers) => {
+    let isLogin = false
+    allUsers.forEach(element => {
+        if (element.email === email && element.password === password) {
+            isLogin = true
+            return isLogin
+        }
+    });
+    return isLogin
+}
+
+
+export const continentList = (array) => {
+    const continents = []
+    array.forEach(element => {
+        if (!continents.includes(element.continent)) {
+            continents.push(element.continent)
+        }
+    })
+    return continents
+}
+
+export const showValidation = (isShow, message) => {
+    if (isShow) {
+        return (
+            <Validationcomponents isShow={isShow} message={message} />
+        )
+    } return;
 }

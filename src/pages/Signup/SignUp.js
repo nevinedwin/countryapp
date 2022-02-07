@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './SignUp.css'
 import TextInput from '../../Components/TextInput'
 import DropdownWrapper from '../../Components/Dropdown';
@@ -59,17 +59,22 @@ const SignUp = () => {
 
         if (validateUsername(input.username) && validateEmail(input.email, stateData.state.userDetails) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
             console.log("submitted in");
-            stateData.dispatch({type: ACTION.USERDETAILS, payload: input})
-            console.log('llll',stateData);
+            stateData.dispatch({ type: ACTION.USERDETAILS, payload: input })
+            console.log('llll', stateData);
             setOnSubmit(false)
             setInput(initialvalue)
-            console.log('ooooooooo');
+            console.log('ooooooooo', stateData.state.userDetails);
+            ManageLocalStorage.set('userDetails', stateData.state.userDetails)
         }
     }
 
+    // useEffect(() => {
+    //     ManageLocalStorage.set('userDetails', stateData.state.userDetails)
+    // }, [stateData.state.userDetails])
+
     return (
         <>
-            <form onSubmit={e=>handleSubmit(e)}>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div className='signup-container'>
                     <h3 className='signup-heading'>Register</h3>
                     <span className="p-float-label signup-input">
@@ -132,7 +137,7 @@ const SignUp = () => {
                         <label htmlFor='confirmPassword'>Confirm Password</label>
                         {onSubmit && validatePassword(input.password) && input.password !== input.confirmPassword ? showValidation(true, 'Password Does not Match') : showValidation(false)}
                     </span>
-                    <ButtonWrapper type='submit' label='Submit' onClick={e=>handleSubmit(e)}/>
+                    <ButtonWrapper type='submit' label='Submit' onClick={e => handleSubmit(e)} />
                 </div>
             </form>
         </>

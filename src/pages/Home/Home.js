@@ -1,11 +1,14 @@
 import React from 'react';
+import Hoc from '../../Components/Hoc';
 
 const Home = () => {
   return (
-      <div>
-          <h1>Hi I Am Nevin Edwin</h1>
+    <>
+      <div className=''>
+        Home
       </div>
+    </>
   );
 };
 
-export default Home;
+export default Hoc(Home);
