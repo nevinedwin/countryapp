@@ -41,7 +41,50 @@ export const continentList = (array) => {
             continents.push(element.continent)
         }
     })
-    return continents
+    return continents.sort()
+}
+
+export const getUserDetails = (input, allUsers)=>{
+    let user = {}
+    allUsers.forEach(eachUser=>{
+        if(eachUser.email == input.email){
+            user = eachUser
+        }
+    })
+    return user
+}
+
+
+export const updateDetails = (newData, oldData)=>{
+    let data =  oldData.map(eacharray=>{
+        if(eacharray.email === newData.email){
+            if (eacharray.password !== newData.password && newData.password !== ''){
+                if(eacharray.username !== newData.username && newData.username !== ''){
+                    console.log("first");
+                    return({...eacharray,
+                        password : newData.password,
+                        confirmPassword : newData.password,
+                        username : newData.username
+                    })
+                }else{
+                    console.log('second');
+                    return({...eacharray,
+                    password : newData.password,
+                    confirmPassword : newData.password})
+                }
+            }else{
+                    if(eacharray.username !== newData.username && newData.username !== ''){
+                        console.log('third');
+                        return({...eacharray,
+                            username : newData.username
+                        })
+                    }
+                }
+        }else{
+            return eacharray
+        }
+    })
+    return data
 }
 
 export const showValidation = (isShow, message) => {

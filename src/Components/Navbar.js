@@ -1,17 +1,31 @@
 import React from 'react';
+import '../Assets/Styles/Navbar.css'
+import {NavLink} from 'react-router-dom'
 
 const Navbar = () => {
+
+    const handleNav = (item)=>{
+        console.log(item);
+    }
+
     return (
         <>
             <div className='nav-container'>
                 <div className='nav-left'>
-                    <h3>Country App</h3>
-                </div>
-                <div className='nav center'>
-                    <h3>center portion</h3>
+                    <NavLink to='/home' className='links' >
+                        Home
+                    </NavLink>
+                    <NavLink to='/profile' className='links'>
+                        Profile
+                    </NavLink>
+                    <NavLink to='/home' className='links' >
+                        Favourites
+                    </NavLink>
                 </div>
                 <div className='nav-right'>
-                    <h3>right portion</h3>
+                    <NavLink to='/home' className='links' onClick={()=>handleNav('Logout')}>
+                        Logout
+                    </NavLink>
                 </div>
             </div>
         </>

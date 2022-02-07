@@ -1,0 +1,51 @@
+.profile-card{
+    width: 70%;
+    height: 85%;
+    margin: auto;
+    border-radius: 50px;
+    margin-top: 25px;
+    background-color: #2f496e;
+    display: flex;
+    justify-content: space-between;
+    color: #f4eade;
+    box-shadow: 10px 10px 30px black;
+    transition: ease-in-out 0.5s;
+    padding: 20px;
+}
+
+.left-card{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* padding-bottom: 200px; */
+    border-right: 1px solid #f4eade;
+}
+.password-text{
+    margin-bottom: 35px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.email-text{
+    margin: 0;
+}
+.password-reseter{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+.input-profile{
+    color: #2f496e;
+}
+.save-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+.green{
+    color: #00ff80;
+}

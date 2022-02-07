@@ -46,11 +46,16 @@
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
-    font-size: 15px;
+    font-size: 18px;
 }
 .p-inputtext{
     border-radius: 5px;
 }
 .p-button{
     height: 50px;
+}
+@media screen and (min-width : 1000px) {
+    .signup-container{
+        width : 350px
+    }
 }

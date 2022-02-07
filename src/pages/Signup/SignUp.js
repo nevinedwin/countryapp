@@ -11,7 +11,6 @@ import { ACTION, StateDetails } from '../../Core/Context';
 const SignUp = () => {
 
     const stateData = useContext(StateDetails)
-    console.log(stateData);
     const countryList = stateData.state.countryDetails
 
     const initialvalue = {
@@ -26,6 +25,19 @@ const SignUp = () => {
 
     const [input, setInput] = useState(initialvalue)
     const [onSubmit, setOnSubmit] = useState(false)
+    const [userData, setUserData] = useState([])
+
+    useEffect(()=>{
+        const allUsers = JSON.parse(ManageLocalStorage.get('userDetails'))
+        if (allUsers !== [null] && allUsers !== null){
+            console.log('allUsers', allUsers);
+            setUserData(allUsers)
+        }
+    },[])
+
+    useEffect(()=>{
+        ManageLocalStorage.set('userDetails', userData)
+    },[onSubmit, userData])
 
     const showPassword = () => {
         setInput(prevData => ({
@@ -59,18 +71,17 @@ const SignUp = () => {
 
         if (validateUsername(input.username) && validateEmail(input.email, stateData.state.userDetails) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
             console.log("submitted in");
-            stateData.dispatch({ type: ACTION.USERDETAILS, payload: input })
-            console.log('llll', stateData);
+            setTimeout(() => {
+                setUserData(prevData=>[
+                    ...prevData,
+                    input
+                ])
+            }, 200);
             setOnSubmit(false)
             setInput(initialvalue)
-            console.log('ooooooooo', stateData.state.userDetails);
-            ManageLocalStorage.set('userDetails', stateData.state.userDetails)
         }
     }
 
-    // useEffect(() => {
-    //     ManageLocalStorage.set('userDetails', stateData.state.userDetails)
-    // }, [stateData.state.userDetails])
 
     return (
         <>
