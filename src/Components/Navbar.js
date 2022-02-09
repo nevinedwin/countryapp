@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import '../Assets/Styles/Navbar.css'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
+import { StateDetails } from '../Core/Context';
 
 const Navbar = () => {
 
-    const handleNav = (item)=>{
-        console.log(item);
+    const stateDetails = useContext(StateDetails)
+
+
+
+    const handleNav = () => {
+        console.log('LogedOut')
     }
 
     return (
@@ -15,17 +21,17 @@ const Navbar = () => {
                     <NavLink to='/home' className='links' >
                         Home
                     </NavLink>
-                    <NavLink to='/profile' className='links'>
+                    <NavLink to='/profile' className='links' >
                         Profile
                     </NavLink>
-                    <NavLink to='/home' className='links' >
+                    <NavLink to='/favourites' className='links'>
                         Favourites
                     </NavLink>
                 </div>
                 <div className='nav-right'>
-                    <NavLink to='/home' className='links' onClick={()=>handleNav('Logout')}>
+                    <div to='/home' className='links' onClick={() => handleNav()}>
                         Logout
-                    </NavLink>
+                    </div>
                 </div>
             </div>
         </>

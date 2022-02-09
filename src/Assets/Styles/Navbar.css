@@ -45,3 +45,20 @@
     font-size: 23px;
     color: #f4eade;
 }
+
+.high-links{
+    display: flex;
+    height: 100%;
+    text-decoration: none;
+    align-items: center;
+    font-style: none;
+    color: #2f496e;
+    font-size: 18px;
+    font-weight: 700;
+    padding-left: 50px;
+    padding-right: 50px;
+    transition: 0.5s ease-in-out;
+    background-color: #2f496e;
+    font-size: 23px;
+    color: #f4eade;
+}

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
 import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
-import { loginIn, showValidation, validateEmail } from '../../CommonServices/services';
+import { getUserDetails, loginIn, showValidation, validateEmail } from '../../CommonServices/services';
 import ButtonWrapper from '../../Components/ButtonWrapper';
 import TextInput from '../../Components/TextInput';
 import { ACTION, StateDetails } from '../../Core/Context';
@@ -14,8 +14,13 @@ const Login = () => {
   const initialState = {
     email: '',
     password: '',
-    showPassword: ''
+    showPassword: false
   }
+
+
+  useEffect(() => {
+    ManageLocalStorage.set('currentUser', stateData.state.currentUser)
+  }, [stateData])
 
   const [input, setInput] = useState(initialState)
   const [onSubmit, setOnSubmit] = useState(false)
@@ -41,6 +46,9 @@ const Login = () => {
     setOnSubmit(true)
     if (loginIn(input.email, input.password, JSON.parse(ManageLocalStorage.get('userDetails')))) {
       ManageLocalStorage.set('currentUser', input)
+      let data = getUserDetails(input, JSON.parse(ManageLocalStorage.get('userDetails')))
+      console.log('data', data);
+      stateData.dispatch({ type: ACTION.CURRENTUSER, payload: data })
       console.log("Login sucess");
       setInput(initialState)
       setOnSubmit(false)

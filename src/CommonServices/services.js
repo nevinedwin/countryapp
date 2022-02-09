@@ -44,10 +44,10 @@ export const continentList = (array) => {
     return continents.sort()
 }
 
-export const getUserDetails = (input, allUsers)=>{
+export const getUserDetails = (input, allUsers) => {
     let user = {}
-    allUsers.forEach(eachUser=>{
-        if(eachUser.email == input.email){
+    allUsers !== null && allUsers.forEach(eachUser => {
+        if (eachUser.email == input.email) {
             user = eachUser
         }
     })
@@ -55,36 +55,101 @@ export const getUserDetails = (input, allUsers)=>{
 }
 
 
-export const updateDetails = (newData, oldData)=>{
-    let data =  oldData.map(eacharray=>{
-        if(eacharray.email === newData.email){
-            if (eacharray.password !== newData.password && newData.password !== ''){
-                if(eacharray.username !== newData.username && newData.username !== ''){
-                    console.log("first");
-                    return({...eacharray,
-                        password : newData.password,
-                        confirmPassword : newData.password,
-                        username : newData.username
-                    })
-                }else{
-                    console.log('second');
-                    return({...eacharray,
-                    password : newData.password,
-                    confirmPassword : newData.password})
-                }
-            }else{
-                    if(eacharray.username !== newData.username && newData.username !== ''){
-                        console.log('third');
-                        return({...eacharray,
-                            username : newData.username
-                        })
-                    }
-                }
-        }else{
+export const updatePassword = (newData, oldData) => {
+    let data = oldData.map(eacharray => {
+        if (eacharray.email === newData.email) {
+            return ({
+                ...eacharray,
+                password: newData.password,
+                confirmPassword: newData.password
+            })
+        } else {
             return eacharray
         }
     })
     return data
+}
+
+export const updateUsername = (newData, oldData) => {
+    let data = oldData.map(eacharray => {
+        if (eacharray.email === newData.email) {
+            return ({
+                ...eacharray,
+                username: newData.username
+            })
+        } else {
+            return eacharray
+        }
+    })
+    return data
+}
+
+export const updateBoth = (newData, oldData) => {
+    let data = oldData.map(eacharray => {
+        if (eacharray.email === newData.email) {
+            return ({
+                ...eacharray,
+                username: newData.username,
+                password: newData.password,
+                confirmPassword: newData.password
+            })
+        } else {
+            return eacharray
+        }
+    })
+    return data
+}
+
+export const getCountriesByContinent = (continent, allContinent) => {
+    let countries = []
+    allContinent !== null && allContinent.forEach(eachdata => {
+        if (eachdata.continent === continent) {
+            countries.push(eachdata)
+        }
+    })
+    return countries
+}
+
+
+export const deleteYourAccount = (currentUser, AllUser) => {
+    let newData = []
+    AllUser !== null && AllUser.forEach(eachUser => {
+        if (eachUser.email !== currentUser.email) {
+            newData.push(eachUser)
+        }
+    })
+    return newData
+}
+
+export const removeArray = (arr, value) => {
+    return arr.filter((eachElement) => {
+        if (eachElement.id !== value) {
+            return eachElement
+        }
+    })
+}
+
+
+export const checkValue = (arr, val) => {
+    let flg = 1
+    arr.forEach(eachElement => {
+        console.log('first', eachElement);
+        if (eachElement.id === val) {
+            flg = 0
+        }
+    })
+
+    return flg
+}
+
+export const getCountriesById = (id, allCountries) => {
+    let newVal = {}
+    allCountries.forEach(eachElement => {
+        if (eachElement.id === id) {
+            newVal = eachElement
+        }
+    })
+    return newVal
 }
 
 export const showValidation = (isShow, message) => {

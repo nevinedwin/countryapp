@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
 import { getCountryDetails, getUserDetails } from '../CommonServices/services';
@@ -7,10 +7,17 @@ export const StateDetails = React.createContext()
 
 const initialValue = {
     countryDetails: [],
+    currentUser: {},
+    continent: 'Africa',
+    favourites: []
 }
 
 export const ACTION = {
     COUNTRYDETAILS: 'countryDetails',
+    CURRENTUSER: 'currentUser',
+    CONTINENT: 'continent',
+    FAVOURITES: 'favourites',
+    FAVOURITESADD: 'favouritesAdd'
 }
 
 const reducer = (state, action) => {
@@ -20,20 +27,45 @@ const reducer = (state, action) => {
                 ...state,
                 countryDetails: action.payload
             }
+        case 'currentUser':
+            return {
+                ...state,
+                currentUser: action.payload
+            }
+        case 'continent':
+            return {
+                ...state,
+                continent: action.payload
+            }
+        case 'favourites':
+            return {
+                ...state,
+                favourites: action.payload
+            }
+        case 'favouritesAdd':
+            return {
+                ...state,
+                favourites: [...state.favourites, action.payload]
+            }
     }
 }
 
 const StateProvider = ({ children }) => {
 
     const navigate = useNavigate()
-    
+
     const [state, dispatch] = useReducer(reducer, initialValue)
 
     useEffect(() => {
         state.countryDetails.length === 0 && getCountryDetails().then(res => {
             dispatch({ type: ACTION.COUNTRYDETAILS, payload: res.data.countries })
         })
-    }, [] )
+        let data = getUserDetails(JSON.parse(ManageLocalStorage.get('currentUser')), JSON.parse(ManageLocalStorage.get('userDetails')))
+        dispatch({ type: ACTION.CURRENTUSER, payload: data })
+
+        let fav = JSON.parse(ManageLocalStorage.get('favourites'))
+        fav !== null && dispatch({ type: ACTION.FAVOURITES, payload: fav })
+    }, [])
 
     return (
         <>
