@@ -24,6 +24,8 @@
 .links{
     display: flex;
     height: 100%;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     align-items: center;
     font-style: none;
@@ -33,15 +35,16 @@
     padding-left: 50px;
     padding-right: 50px;
     transition: 0.5s ease-in-out;
+    cursor: pointer;
 }
 
 .nav-left :hover{
-    background-color: #2f496e;
+    background-color: #2988bc;
     font-size: 23px;
     color: #f4eade;
 }
 .nav-right :hover{
-    background-color: #2f496e;
+    background-color: #2988bc;
     font-size: 23px;
     color: #f4eade;
 }
@@ -58,7 +61,12 @@
     padding-left: 50px;
     padding-right: 50px;
     transition: 0.5s ease-in-out;
-    background-color: #2f496e;
+    background-color: #2988bc;
     font-size: 23px;
     color: #f4eade;
+}
+.menu-icon{
+    font-size: 30px;
+    margin-left: 20px;
+    cursor: pointer;
 }

@@ -30,7 +30,6 @@ const SignUp = () => {
     useEffect(()=>{
         const allUsers = JSON.parse(ManageLocalStorage.get('userDetails'))
         if (allUsers !== [null] && allUsers !== null){
-            console.log('allUsers', allUsers);
             setUserData(allUsers)
         }
     },[])
@@ -67,10 +66,7 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         setOnSubmit(true)
-        console.log("submitted out");
-
         if (validateUsername(input.username) && validateEmail(input.email, stateData.state.userDetails) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
-            console.log("submitted in");
             setTimeout(() => {
                 setUserData(prevData=>[
                     ...prevData,

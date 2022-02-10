@@ -1,30 +1,41 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../Assets/Styles/Navbar.css'
-import { NavLink } from 'react-router-dom'
-import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
-import { StateDetails } from '../Core/Context';
+import { NavLink, useLocation } from 'react-router-dom'
+import { ACTION, StateDetails } from '../Core/Context';
+import {ImMenu} from 'react-icons/im'
 
 const Navbar = () => {
 
     const stateDetails = useContext(StateDetails)
+    const location = useLocation()
 
+    const [check, setCheck] = useState('')
 
+    useEffect(()=>{
+        setCheck(location.pathname)
+    },[location.pathname])
 
     const handleNav = () => {
-        console.log('LogedOut')
+        stateDetails.dispatch({type: ACTION.CURRENTUSER, payload: {}})
+        stateDetails.navigate('./login')
+    }
+
+    const handleSidebar =()=>{
+        stateDetails.dispatch({type: ACTION.SHOWSIDEBAR})
     }
 
     return (
         <>
             <div className='nav-container'>
+                <ImMenu className='menu-icon' onClick={handleSidebar}/>
                 <div className='nav-left'>
-                    <NavLink to='/home' className='links' >
+                    <NavLink to='/home' className={check === '/home' ? 'high-links': 'links'} >
                         Home
                     </NavLink>
-                    <NavLink to='/profile' className='links' >
+                    <NavLink to='/profile'  className={check === '/profile' ? 'high-links': 'links'} >
                         Profile
                     </NavLink>
-                    <NavLink to='/favourites' className='links'>
+                    <NavLink to='/favourites'  className={check === '/favourites' ? 'high-links': 'links'}>
                         Favourites
                     </NavLink>
                 </div>

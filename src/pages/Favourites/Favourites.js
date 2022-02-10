@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
 import { checkValue, getCountriesById, removeArray } from '../../CommonServices/services';
+import Detailed from '../../Components/Detailed';
 import Hoc from '../../Components/Hoc';
 import Pagination from '../../Components/Pagination';
 import { ACTION, StateDetails } from '../../Core/Context';
@@ -19,6 +21,7 @@ const Favourites = () => {
     const [indexofFirstCard, setIndeOfFirstCard] = useState(0)
     const [pageNumber, setPageNumber] = useState([])
     const [showCountry, setShowCountry] = useState(false)
+    const [detailedView, setDetailedView] = useState({})
 
     useEffect(()=>{
         setStateCountries(stateDetails.state.favourites)
@@ -47,9 +50,7 @@ const Favourites = () => {
       const addCountry = (id) => {
         let flag = 1
         if (stateDetails.state.favourites.length !== 0) {
-          console.log(stateDetails);
           flag = checkValue(stateDetails.state.favourites, id)
-          console.log('flag', flag)
         }
     
         if (flag === 0) {
@@ -59,23 +60,27 @@ const Favourites = () => {
     
         if (flag === 1) {
           let newCountries = getCountriesById(id, stateDetails.state.countryDetails)
-          console.log("object", newCountries);
           stateDetails.dispatch({ type: ACTION.FAVOURITESADD, payload: newCountries })
         }
       }
 
       const selectCard = (id) => {
+        let val = getCountriesById(id, stateDetails.state.countryDetails)
+        setDetailedView(val)
         setShowCountry(true)
       }
+
+      const handleArrow = ()=>{
+        setShowCountry(false)
+      }
+    
 
     return (
         <>
             <div className='home'>
-                {showCountry && <>
-                <div className='card-big'>
-
-                </div>
-                </>}
+            {showCountry && <>
+            <Detailed detailedView={detailedView} handleArrow={handleArrow}/>
+            </>}
                 {showCountry === false && <>
                 <div className='home-container'>
                 <Pagination countries={statecountries.slice(indexofFirstCard, indexofLastCard)} addCountry={addCountry} selectCard={selectCard} />

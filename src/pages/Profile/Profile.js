@@ -9,7 +9,6 @@ import './profile.css'
 
 const Profile = () => {
     const stateDetails = useContext(StateDetails)
-    console.log(stateDetails);
     const allUsers = JSON.parse(ManageLocalStorage.get('userDetails'))
     const currentUser = JSON.parse(ManageLocalStorage.get('currentUser'))
     let country = stateDetails.state.currentUser.country
@@ -78,8 +77,6 @@ const Profile = () => {
         setOnSubmit(true)
         let data
 
-        console.log(validatePassword(input.password));
-
         if (value === 'password') {
             data = updatePassword(input, allUsers)
             if (input.password === input.confirmPassword && input.password !== '' && validatePassword(input.password)) {
@@ -111,10 +108,8 @@ const Profile = () => {
 
     const handleDelete = () => {
         let newData = deleteYourAccount(currentUser, allUsers)
-        console.log({ newData });
         ManageLocalStorage.set('userDetails', newData)
         stateDetails.dispatch({ type: ACTION.CURRENTUSER, payload: {} })
-        console.log(stateDetails.state.currentUser);
         setDeleteMsg(true)
         setTimeout(() => {
             setDeleteMsg(false)
@@ -124,15 +119,16 @@ const Profile = () => {
     }
 
     return (
-        <div className='profile-card'>
+            <div className='profile-card'>
             <div className='left-card'>
                 <h1>{stateDetails.state.currentUser.username}</h1>
                 <div>
-                    <h4 className='email-text'>Email : {stateDetails.state.currentUser.email}</h4>
+                    <h4 className='email-text'>Email : <span className='email-text-only'>{stateDetails.state.currentUser.email}</span></h4>
                 </div>
                 <div className='password-section'>
                     <h5 className='password-text' onClick={() => setUsernameReset(prevdata => !prevdata)}>Click Here for Change Display Name</h5>
                     <h5 className='password-text' onClick={() => setPasswordReset(prevdata => !prevdata)}>Click Here for Change Password</h5>
+                    <p className='password-text' onClick={() => { setDeleteAccount(prevData => !prevData) }} >Click here to Delete your account</p>
                     {paswordReset && <div className='password-reseter'>
                         {showSuccesmsg && <small className='green'>Updated Data Succesfully Updated</small>}
                         {onSubmit && input.password !== input.confirmPassword && showValidation(true, 'Password Does not match')}
@@ -187,6 +183,12 @@ const Profile = () => {
                             </div>
                         </div>
                     }
+                    {deleteMsg && <small className='green'>Succesfully deleted your Account</small>}
+                    {deleteAccount && !usernameReset && !paswordReset && <div className='delete-account'>
+                    <p className='normal-mouse'>Delete your account</p>
+                    <ButtonWrapper icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={handleDelete} />
+                    <ButtonWrapper icon="pi pi-times" className="p-button-rounded p-button-success" onClick={() => setDeleteAccount(prevData => !prevData)} />
+                </div>}
                 </div>
             </div>
             <div>
@@ -194,21 +196,22 @@ const Profile = () => {
             </div>
             <div className='right-card'>
                 <h3 className='heading-profile'>Country Details</h3>
-                <h4>{countries && countries.name}</h4>
-                <p>Abbreviation: {countries && countries.abbr3}</p>
-                <p>Alternate Name : {countries && countries.altName}</p>
-                <p>Continent : {countries && countries.continent}</p>
-                <p>Currency: {countries && countries.currencyName}</p>
-                <p>Currency Symbol: {countries && countries.currencySymbol}</p>
-                <p className='click' onClick={() => { setDeleteAccount(prevData => !prevData) }} >Click here to Delete your account</p>
-                {deleteMsg && <small className='green'>Succesfully deleted your Account</small>}
-                {deleteAccount && <div className='delete-account'>
-                    <p>Delete your account</p>
-                    <ButtonWrapper icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={handleDelete} />
-                    <ButtonWrapper icon="pi pi-times" className="p-button-rounded p-button-success" onClick={() => setDeleteAccount(prevData => !prevData)} />
-                </div>}
+                <ul>
+                  <li>{countries && countries.id} is the Id</li>
+                  <li>Abbreviation of {countries && countries.altName} is {countries && countries.abbr3}</li>
+                  <li>{countries && countries.altName} is situated in {countries && countries.continent} continent.</li>
+                  <li>{countries && countries.distanceUnits} is the distance Unit.</li>
+                  <li>{countries && countries.esriUnits} is the ESRIUnits.</li>
+                  <h4>Currencies</h4>
+                  <ul>
+                    <li>{countries && countries.currencyCode} is the currency code.</li>
+                    <li>{countries && countries.currencyName} is the currency name.</li>
+                    <li>{countries && countries.currencySymbol} is the currency Symbol.</li>
+                    <li className='last-iem'>{countries && countries.currencyFormat} is the currency Format.</li>
+                  </ul>
+                </ul>
             </div>
-        </div>
+            </div>
     )
 };
 

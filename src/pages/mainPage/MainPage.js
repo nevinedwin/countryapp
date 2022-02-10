@@ -46,6 +46,7 @@ const MainPage = () => {
 
     return (
         <div className='mainpage-container'>
+            <h1 className='app-name'>COUNTRY APP</h1>
             <div className='mainpage-content-container'>
                 <div className='mainpage-switches'>
                     <div className={`mainpage-button ${state.clicked.login}`} onClick={() => dispatch({ type: ACTION.LOGIN })}>

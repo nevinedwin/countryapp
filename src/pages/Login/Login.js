@@ -47,14 +47,11 @@ const Login = () => {
     if (loginIn(input.email, input.password, JSON.parse(ManageLocalStorage.get('userDetails')))) {
       ManageLocalStorage.set('currentUser', input)
       let data = getUserDetails(input, JSON.parse(ManageLocalStorage.get('userDetails')))
-      console.log('data', data);
       stateData.dispatch({ type: ACTION.CURRENTUSER, payload: data })
-      console.log("Login sucess");
       setInput(initialState)
       setOnSubmit(false)
       stateData.navigate('/home')
     }
-    console.log("login Fail");
   }
 
   return (

@@ -10,6 +10,7 @@ const Sidebar = (props) => {
     const stateDetails = useContext(StateDetails)
 
     const [continents, setContinents] = useState([])
+    const [show, setShow] = useState(true)
 
 
     useEffect(() => {
@@ -17,6 +18,7 @@ const Sidebar = (props) => {
             let listOfContinents = continentList(stateDetails.state.countryDetails)
             setContinents(listOfContinents)
         }
+        setShow(stateDetails.state.showSidebar)
     }, [stateDetails])
 
     const selectContinent = (continentName) => {
@@ -25,20 +27,23 @@ const Sidebar = (props) => {
     }
 
     return (
-        <div className='sidebar'>
-            <div className='Logo'>
-                <h3>COUNTRY<br />APP</h3>
-            </div>
-            <div className='continent-list ' >
-                {continents.map(eachContinent => {
-                    return (
-                        <div key={eachContinent} className={stateDetails.state.continent === eachContinent ? 'inital-select' : 'each-continent'} onClick={() => selectContinent(eachContinent)}>
-                            {eachContinent}
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
+        <>
+            {show && <div className='sidebar'>
+                    <div className='Logo'>
+                        <h3 className='logo-text'>COUNTRY<br />APP</h3>
+                    </div>
+                    <div className='continent-list ' >
+                        {continents.map(eachContinent => {
+                            return (
+                                <div key={eachContinent} className={stateDetails.state.continent === eachContinent ? 'inital-select' : 'each-continent'} onClick={() => selectContinent(eachContinent)}>
+                                    {eachContinent}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>}
+        </>
+       
     )
 };
 

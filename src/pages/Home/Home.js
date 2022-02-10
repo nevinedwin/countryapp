@@ -7,7 +7,8 @@ import Hoc from '../../Components/Hoc';
 import Pagination from '../../Components/Pagination';
 import { ACTION, StateDetails } from '../../Core/Context';
 import './Home.css'
-
+import Detailed from '../../Components/Detailed';
+ 
 const Home = () => {
 
   const stateDetails = useContext(StateDetails)
@@ -20,6 +21,7 @@ const Home = () => {
   const [indexofFirstCard, setIndeOfFirstCard] = useState(0)
   const [pageNumber, setPageNumber] = useState([])
   const [showCountry, setShowCountry] = useState(false)
+  const [detailedView, setDetailedView] = useState({})
 
 
 
@@ -51,9 +53,7 @@ const Home = () => {
   const addCountry = (id) => {
     let flag = 1
     if (stateDetails.state.favourites.length !== 0) {
-      console.log(stateDetails);
       flag = checkValue(stateDetails.state.favourites, id)
-      console.log('flag', flag)
     }
 
     if (flag === 0) {
@@ -63,22 +63,25 @@ const Home = () => {
 
     if (flag === 1) {
       let newCountries = getCountriesById(id, stateDetails.state.countryDetails)
-      console.log("object", newCountries);
       stateDetails.dispatch({ type: ACTION.FAVOURITESADD, payload: newCountries })
     }
   }
 
   const selectCard = (id) => {
+    let val = getCountriesById(id, stateDetails.state.countryDetails)
+    setDetailedView(val)
     setShowCountry(true)
   }
 
-  return (
+  const handleArrow = ()=>{
+    setShowCountry(false)
+  }
+  
 
+  return (
     <div className='home'>
       {showCountry && <>
-        <div className='card-big'>
-
-        </div>
+        <Detailed detailedView={detailedView} handleArrow={handleArrow}/>
       </>}
       {showCountry === false && <>
         <div className='home-container'>

@@ -1,3 +1,7 @@
+.main-heading-card{
+    color: #2f496e;
+    margin-right:50PX ;
+}
 .profile-card{
     width: 70%;
     height: 85%;
@@ -20,16 +24,24 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* padding-bottom: 200px; */
     border-right: 1px solid #f4eade;
+}
+.left-card h1{
+    font-size: 50px;
+    cursor: default;
 }
 .password-text{
     margin-bottom: 35px;
     cursor: pointer;
     margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: normal;
+    text-decoration: underline;
 }
 .email-text{
     margin: 0;
+    font-size: 20px;
+    cursor: default;
 }
 .password-reseter{
     display: flex;
@@ -58,25 +70,51 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    background-color: #ed8c72;
+    margin: 20px;
+    border-radius: 40px;
+    color: #2f496e;
+    margin-left: 50px;
 }
 .right-card p{
     margin: 0;
 }
+.right-card li{
+    font-size: 16px;
+    padding-bottom: 10px;
+    font-weight: 500;
+}
+.right-card ul{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.last-iem{
+    padding-bottom: 0;
+}
 
 .heading-profile{
-    font-size: 25px;
+    font-size: 30px;
 }
 
+.email-text-only{
+    font-weight: 400;
+    font-size: 14px;
+    cursor: default;
+}
 .right-card h4{
-    font-size:20px ;
+    font-size:18px ;
     margin: 0;
+    margin-bottom: 20px;
 }
-
+.normal-mouse{
+    cursor: default;
+}
 .right-card .click{
-    margin-top: 20px;
+    margin-top: 25px;
     text-decoration: underline;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .delete-account{
@@ -84,5 +122,5 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }

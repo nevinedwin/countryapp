@@ -9,15 +9,17 @@ const initialValue = {
     countryDetails: [],
     currentUser: {},
     continent: 'Africa',
-    favourites: []
+    favourites: [],
+    showSidebar: true
 }
 
 export const ACTION = {
-    COUNTRYDETAILS: 'countryDetails',
-    CURRENTUSER: 'currentUser',
-    CONTINENT: 'continent',
-    FAVOURITES: 'favourites',
-    FAVOURITESADD: 'favouritesAdd'
+    COUNTRYDETAILS : 'countryDetails',
+    CURRENTUSER : 'currentUser',
+    CONTINENT : 'continent',
+    FAVOURITES : 'favourites',
+    FAVOURITESADD : 'favouritesAdd',
+    SHOWSIDEBAR : 'showSidebar'
 }
 
 const reducer = (state, action) => {
@@ -46,6 +48,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 favourites: [...state.favourites, action.payload]
+            }
+        case 'showSidebar':
+            return{
+                ...state,
+                showSidebar : !state.showSidebar
             }
     }
 }

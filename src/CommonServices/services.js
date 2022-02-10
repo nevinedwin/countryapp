@@ -133,7 +133,6 @@ export const removeArray = (arr, value) => {
 export const checkValue = (arr, val) => {
     let flg = 1
     arr.forEach(eachElement => {
-        console.log('first', eachElement);
         if (eachElement.id === val) {
             flg = 0
         }
@@ -147,6 +146,7 @@ export const getCountriesById = (id, allCountries) => {
     allCountries.forEach(eachElement => {
         if (eachElement.id === id) {
             newVal = eachElement
+            return newVal
         }
     })
     return newVal
