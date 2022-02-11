@@ -70,8 +70,17 @@ const StateProvider = ({ children }) => {
         let data = getUserDetails(JSON.parse(ManageLocalStorage.get('currentUser')), JSON.parse(ManageLocalStorage.get('userDetails')))
         dispatch({ type: ACTION.CURRENTUSER, payload: data })
 
-        let fav = JSON.parse(ManageLocalStorage.get('favourites'))
-        fav !== null && dispatch({ type: ACTION.FAVOURITES, payload: fav })
+        // let fav = JSON.parse(ManageLocalStorage.get('favourites'))
+        // fav !== null && dispatch({ type: ACTION.FAVOURITES, payload: fav })
+
+        let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+        if(fav !== null){
+            fav.forEach(element => {
+                if(element.user === data.email){
+                    dispatch({type: ACTION.FAVOURITES, payload: element.favourites})
+                }
+            })
+        }
     }, [])
 
     return (

@@ -1,0 +1,4 @@
+problem:
+1. favourites comes only after refreshing
+2. if select a fovourite and refresh the page we loose the selected favourite
+3. route validation is not done

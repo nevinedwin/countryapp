@@ -30,7 +30,7 @@ const Home = () => {
     setIndeOfFirstCard(0)
     setIndexOfLastCard(5)
     setCurrentPage(1)
-    stateDetails.state.favourites.length !== 0 && ManageLocalStorage.set('favourites', stateDetails.state.favourites)
+    ManageLocalStorage.set('favourites', stateDetails.state.favourites)
   }, [stateDetails])
 
   useEffect(() => {
