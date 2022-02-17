@@ -23,14 +23,27 @@ const Home = () => {
   const [showCountry, setShowCountry] = useState(false)
   const [detailedView, setDetailedView] = useState({})
 
-
+  useEffect(() => {
+    let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+    let currentUserr = stateDetails.state.currentUser.email
+    if(fav !== null){
+      stateDetails.dispatch({type: ACTION.FAVOURITES, payload: fav[currentUserr] ? fav[currentUserr] : []})
+    }
+  }, [])
+  
 
   useEffect(() => {
+    console.log('home')
     setStateCountries(getCountriesByContinent(stateDetails.state.continent, stateDetails.state.countryDetails))
     setIndeOfFirstCard(0)
     setIndexOfLastCard(5)
     setCurrentPage(1)
-    ManageLocalStorage.set('favourites', stateDetails.state.favourites)
+    let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+    let currentUserr = stateDetails.state.currentUser.email
+    
+    ManageLocalStorage.set('allFavourites', {
+      ...fav, 
+      [currentUserr] : stateDetails.state.favourites})
   }, [stateDetails])
 
   useEffect(() => {

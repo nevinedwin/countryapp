@@ -2,6 +2,8 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
 import { getCountryDetails, getUserDetails } from '../CommonServices/services';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const StateDetails = React.createContext()
 
@@ -10,7 +12,8 @@ const initialValue = {
     currentUser: {},
     continent: 'Africa',
     favourites: [],
-    showSidebar: true
+    showSidebar: true,
+    toastValue : ''
 }
 
 export const ACTION = {
@@ -19,7 +22,9 @@ export const ACTION = {
     CONTINENT : 'continent',
     FAVOURITES : 'favourites',
     FAVOURITESADD : 'favouritesAdd',
-    SHOWSIDEBAR : 'showSidebar'
+    SHOWSIDEBAR : 'showSidebar',
+    SUCCESS: 'sucessToast',
+    FAILED : 'errorToast'
 }
 
 const reducer = (state, action) => {
@@ -54,6 +59,16 @@ const reducer = (state, action) => {
                 ...state,
                 showSidebar : !state.showSidebar
             }
+        case 'sucessToast':
+            return{
+                ...state,
+                toastValue : toast.success(action.payload)
+            }
+        case 'errorToast':
+            return{
+                ...state,
+                toastValue : toast.error(action.payload)
+            }
     }
 }
 
@@ -70,23 +85,26 @@ const StateProvider = ({ children }) => {
         let data = getUserDetails(JSON.parse(ManageLocalStorage.get('currentUser')), JSON.parse(ManageLocalStorage.get('userDetails')))
         dispatch({ type: ACTION.CURRENTUSER, payload: data })
 
-        // let fav = JSON.parse(ManageLocalStorage.get('favourites'))
-        // fav !== null && dispatch({ type: ACTION.FAVOURITES, payload: fav })
-
         let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+        console.log('context')
+        let curUser = JSON.parse(ManageLocalStorage.get('currentUser')).email
         if(fav !== null){
-            fav.forEach(element => {
-                if(element.user === data.email){
-                    dispatch({type: ACTION.FAVOURITES, payload: element.favourites})
-                }
-            })
+            dispatch({type: ACTION.FAVOURITES, payload: fav[curUser] ? fav[curUser] : []})
         }
     }, [])
+
+
 
     return (
         <>
             <StateDetails.Provider value={{ state: state, dispatch: dispatch, navigate: navigate }}>
                 {children}
+                <ToastContainer 
+                    draggable={false}
+                    autoClose={2000}
+                    transition={Zoom}
+                    position={'top-right'}
+                />
             </StateDetails.Provider>
         </>
     )

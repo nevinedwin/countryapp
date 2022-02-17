@@ -66,6 +66,7 @@ const Profile = () => {
         setInput(initialValue)
         setOnSubmit(false)
         setShowSuccesmsg(true)
+        stateDetails.dispatch({type: ACTION.SUCCESS, payload: 'Details Updated Succesfully'})
         setTimeout(() => {
             setShowSuccesmsg(false)
             setPasswordReset(false)
@@ -111,6 +112,7 @@ const Profile = () => {
         ManageLocalStorage.set('userDetails', newData)
         stateDetails.dispatch({ type: ACTION.CURRENTUSER, payload: {} })
         setDeleteMsg(true)
+        stateDetails.dispatch({type: ACTION.SUCCESS, payload: 'Deleted Your Account Succesfully'})
         setTimeout(() => {
             setDeleteMsg(false)
             setDeleteAccount(false)

@@ -16,7 +16,6 @@ const reducer = (state, action) => {
                 ...state, clicked: {
                     login: 'apply',
                     signup: '',
-                    forget: ''
                 }
             }
 
@@ -25,7 +24,6 @@ const reducer = (state, action) => {
                 ...state, clicked: {
                     login: '',
                     signup: 'apply',
-                    forget: ''
                 }
             }
     }
@@ -43,6 +41,9 @@ const MainPage = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState)
 
+    const goToLogin = ()=>{
+        dispatch({type: ACTION.LOGIN})
+    }
 
     return (
         <div className='mainpage-container'>
@@ -60,7 +61,7 @@ const MainPage = () => {
                 </div>
                 <div className='mainpage-content'>
                     {state.clicked.login !== '' && <Login />}
-                    {state.clicked.signup !== '' && <SignUp />}
+                    {state.clicked.signup !== '' && <SignUp goToLogin={goToLogin}/>}
                 </div>
             </div>
         </div>

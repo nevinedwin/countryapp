@@ -7,10 +7,17 @@ export const getCountryDetails = async () => {
 }
 
 
-export const validateEmail = (email, prevUsers) => {
+export const validateEmail = (email) => {
     const regx = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-z]{2,5}$/
     return (regx.test(String(email).toLowerCase()))
 }
+
+export const validateUser = (email, prevUsers) =>{
+    if (prevUsers[email]){
+        return false
+    }else{
+        return true
+}}
 
 export const validateUsername = (username) => {
     const regx = /^[a-zA-Z0-9]+$/
@@ -24,12 +31,11 @@ export const validatePassword = (password) => {
 
 export const loginIn = (email, password, allUsers) => {
     let isLogin = false
-    allUsers.forEach(element => {
-        if (element.email === email && element.password === password) {
+    if(email && password && allUsers[email]){
+        if(allUsers[email].password === password){
             isLogin = true
-            return isLogin
         }
-    });
+    }
     return isLogin
 }
 
@@ -46,58 +52,53 @@ export const continentList = (array) => {
 
 export const getUserDetails = (input, allUsers) => {
     let user = {}
-    allUsers !== null && allUsers.forEach(eachUser => {
-        if (eachUser.email == input.email) {
-            user = eachUser
+    let keyEmail = input.email
+    if (allUsers !== null){
+        if(allUsers[keyEmail] !== null){
+            user = allUsers[keyEmail]
+        }else{
+            console.log('user Does not Exists')
         }
-    })
+    } 
     return user
 }
 
 
 export const updatePassword = (newData, oldData) => {
-    let data = oldData.map(eacharray => {
-        if (eacharray.email === newData.email) {
-            return ({
-                ...eacharray,
-                password: newData.password,
-                confirmPassword: newData.password
-            })
-        } else {
-            return eacharray
+    let currentUser = newData.email
+    return( {
+        ...oldData,
+        [currentUser]: {
+            ...oldData[newData.email],
+            password : newData.password,
+            confirmPassword : newData.password
         }
     })
-    return data
 }
 
+
 export const updateUsername = (newData, oldData) => {
-    let data = oldData.map(eacharray => {
-        if (eacharray.email === newData.email) {
-            return ({
-                ...eacharray,
-                username: newData.username
-            })
-        } else {
-            return eacharray
+    let currentUser = newData.email
+    return( {
+        ...oldData,
+        [currentUser]: {
+            ...oldData[newData.email],
+            username : newData.username
         }
     })
-    return data
 }
 
 export const updateBoth = (newData, oldData) => {
-    let data = oldData.map(eacharray => {
-        if (eacharray.email === newData.email) {
-            return ({
-                ...eacharray,
-                username: newData.username,
-                password: newData.password,
-                confirmPassword: newData.password
-            })
-        } else {
-            return eacharray
+    let currentUser = newData.email
+    return( {
+        ...oldData,
+        [currentUser]: {
+            ...oldData[newData.email],
+            password : newData.password,
+            confirmPassword : newData.password,
+            username : newData.username
         }
     })
-    return data
 }
 
 export const getCountriesByContinent = (continent, allContinent) => {
@@ -112,13 +113,8 @@ export const getCountriesByContinent = (continent, allContinent) => {
 
 
 export const deleteYourAccount = (currentUser, AllUser) => {
-    let newData = []
-    AllUser !== null && AllUser.forEach(eachUser => {
-        if (eachUser.email !== currentUser.email) {
-            newData.push(eachUser)
-        }
-    })
-    return newData
+    delete AllUser[currentUser.email]
+    return AllUser
 }
 
 export const removeArray = (arr, value) => {

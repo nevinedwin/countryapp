@@ -43,14 +43,18 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    let user_details = JSON.parse(ManageLocalStorage.get('userDetails'))
     setOnSubmit(true)
-    if (loginIn(input.email, input.password, JSON.parse(ManageLocalStorage.get('userDetails')))) {
+    if (loginIn(input.email, input.password, user_details)) {
       ManageLocalStorage.set('currentUser', input)
-      let data = getUserDetails(input, JSON.parse(ManageLocalStorage.get('userDetails')))
+      let data = getUserDetails(input, user_details)
       stateData.dispatch({ type: ACTION.CURRENTUSER, payload: data })
       setInput(initialState)
       setOnSubmit(false)
       stateData.navigate('/home')
+    }else{
+      setOnSubmit(false)
+      stateData.dispatch({type: ACTION.FAILED, payload: 'Oops..! Invalid credentials...or User does not Exists'})
     }
   }
 

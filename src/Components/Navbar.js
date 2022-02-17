@@ -17,16 +17,12 @@ const Navbar = () => {
     },[location.pathname])
 
     const handleNav = () => {
-        let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
-        let newFav = []
-        fav!== null && fav.forEach(element => {
-            if(element.user!== stateDetails.state.currentUser.email){
-                newFav.push(element)
-            }
-        })
-        ManageLocalStorage.set('allFavourites', [...newFav, {'user': stateDetails.state.currentUser.email, 'favourites': stateDetails.state.favourites}])
+        // let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+        // let currentUserr = stateDetails.state.currentUser.email
+        // ManageLocalStorage.set('allFavourites', {
+        //     ...fav, 
+        //     [currentUserr] : stateDetails.state.favourites})
         stateDetails.dispatch({type: ACTION.CURRENTUSER, payload: {}})
-        ManageLocalStorage.set('favourites', [])
         stateDetails.dispatch({type: ACTION.FAVOURITES, payload: []})
         stateDetails.navigate('./login')
     }

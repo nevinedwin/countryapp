@@ -3,12 +3,12 @@ import './SignUp.css'
 import TextInput from '../../Components/TextInput'
 import DropdownWrapper from '../../Components/Dropdown';
 import ButtonWrapper from '../../Components/ButtonWrapper'
-import { showValidation, validateEmail, validatePassword, validateUsername } from '../../CommonServices/services';
+import { showValidation, validateEmail, validatePassword, validateUser, validateUsername } from '../../CommonServices/services';
 import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
 import { ACTION, StateDetails } from '../../Core/Context';
 
 
-const SignUp = () => {
+const SignUp = ({goToLogin}) => {
 
     const stateData = useContext(StateDetails)
     const countryList = stateData.state.countryDetails
@@ -25,17 +25,18 @@ const SignUp = () => {
 
     const [input, setInput] = useState(initialvalue)
     const [onSubmit, setOnSubmit] = useState(false)
-    const [userData, setUserData] = useState([])
+    const [userData, setUserData] = useState({})
 
     useEffect(()=>{
         const allUsers = JSON.parse(ManageLocalStorage.get('userDetails'))
-        if (allUsers !== [null] && allUsers !== null){
+        if (allUsers !== null){
             setUserData(allUsers)
         }
     },[])
 
     useEffect(()=>{
         ManageLocalStorage.set('userDetails', userData)
+        console.log(userData)
     },[onSubmit, userData])
 
     const showPassword = () => {
@@ -64,17 +65,29 @@ const SignUp = () => {
 
 
     const handleSubmit = (e) => {
+        let b = {}
+        console.log(b.nevin)
         e.preventDefault()
         setOnSubmit(true)
-        if (validateUsername(input.username) && validateEmail(input.email, stateData.state.userDetails) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
-            setTimeout(() => {
-                setUserData(prevData=>[
+        if(validateUser(input.email, userData)){
+            console.log('enter')
+            if (validateUsername(input.username) && validateEmail(input.email) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
+                setUserData(prevData=>({
                     ...prevData,
-                    input
-                ])
-            }, 200);
+                    [input.email] : input
+                }))
+                setOnSubmit(false)
+                stateData.dispatch({type: ACTION.SUCCESS, payload: 'Congratulations.! Successfully Registered'})
+                setTimeout(() => {
+                    goToLogin() 
+                }, 400);
+            }else{
+                stateData.dispatch({type: ACTION.FAILED, payload: 'Oops..! You should fill all fields in the form...'})
+            }
+        }else{
             setOnSubmit(false)
             setInput(initialvalue)
+            stateData.dispatch({type: ACTION.FAILED, payload: 'Oops..! User Already Exists..'})
         }
     }
 

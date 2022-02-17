@@ -28,7 +28,11 @@ const Favourites = () => {
         setIndeOfFirstCard(0)
         setIndexOfLastCard(5)
         setCurrentPage(1)
-        ManageLocalStorage.set('favourites', stateDetails.state.favourites)
+        let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
+        let currentUserr = stateDetails.state.currentUser.email
+        ManageLocalStorage.set('allFavourites', {
+          ...fav, 
+          [currentUserr] : stateDetails.state.favourites})
     },[stateDetails])
 
     useEffect(() => {
