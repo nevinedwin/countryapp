@@ -86,7 +86,6 @@ const StateProvider = ({ children }) => {
         dispatch({ type: ACTION.CURRENTUSER, payload: data })
 
         let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
-        console.log('context')
         let curUser = JSON.parse(ManageLocalStorage.get('currentUser')).email
         if(fav !== null){
             dispatch({type: ACTION.FAVOURITES, payload: fav[curUser] ? fav[curUser] : []})
