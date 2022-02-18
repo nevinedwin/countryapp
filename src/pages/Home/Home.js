@@ -33,7 +33,6 @@ const Home = () => {
   
 
   useEffect(() => {
-    console.log('home')
     setStateCountries(getCountriesByContinent(stateDetails.state.continent, stateDetails.state.countryDetails))
     setIndeOfFirstCard(0)
     setIndexOfLastCard(5)

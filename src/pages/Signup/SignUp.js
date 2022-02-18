@@ -67,7 +67,6 @@ const SignUp = ({goToLogin}) => {
         e.preventDefault()
         setOnSubmit(true)
         if(validateUser(input.email, userData)){
-            console.log('enter')
             if (validateUsername(input.username) && validateEmail(input.email) && validatePassword(input.password) && input.password === input.confirmPassword && input.country !== '') {
                 setUserData(prevData=>({
                     ...prevData,
