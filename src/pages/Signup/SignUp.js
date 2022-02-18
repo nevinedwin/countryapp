@@ -35,8 +35,7 @@ const SignUp = ({goToLogin}) => {
     },[])
 
     useEffect(()=>{
-        ManageLocalStorage.set('userDetails', userData)
-        console.log(userData)
+        ManageLocalStorage.set('userDetails', userData)     
     },[onSubmit, userData])
 
     const showPassword = () => {
@@ -65,8 +64,6 @@ const SignUp = ({goToLogin}) => {
 
 
     const handleSubmit = (e) => {
-        let b = {}
-        console.log(b.nevin)
         e.preventDefault()
         setOnSubmit(true)
         if(validateUser(input.email, userData)){

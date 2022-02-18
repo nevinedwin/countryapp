@@ -13,7 +13,8 @@ const initialValue = {
     continent: 'Africa',
     favourites: [],
     showSidebar: true,
-    toastValue : ''
+    toastValue : '',
+    isLogin : false
 }
 
 export const ACTION = {
@@ -24,7 +25,8 @@ export const ACTION = {
     FAVOURITESADD : 'favouritesAdd',
     SHOWSIDEBAR : 'showSidebar',
     SUCCESS: 'sucessToast',
-    FAILED : 'errorToast'
+    FAILED : 'errorToast',
+    ISLOGIN : 'isLogin'
 }
 
 const reducer = (state, action) => {
@@ -69,6 +71,11 @@ const reducer = (state, action) => {
                 ...state,
                 toastValue : toast.error(action.payload)
             }
+        case 'isLogin':
+            return{
+                ...state,
+                isLogin : action.payload
+            }
     }
 }
 
@@ -82,16 +89,22 @@ const StateProvider = ({ children }) => {
         state.countryDetails.length === 0 && getCountryDetails().then(res => {
             dispatch({ type: ACTION.COUNTRYDETAILS, payload: res.data.countries })
         })
-        let data = getUserDetails(JSON.parse(ManageLocalStorage.get('currentUser')), JSON.parse(ManageLocalStorage.get('userDetails')))
-        dispatch({ type: ACTION.CURRENTUSER, payload: data })
+        let data = getUserDetails(ManageLocalStorage.get('currentUser') ? JSON.parse(ManageLocalStorage.get('currentUser')): {}, ManageLocalStorage.get('userDetails') ? JSON.parse(ManageLocalStorage.get('userDetails')): {})
+        data && dispatch({ type: ACTION.CURRENTUSER, payload: data })
 
-        let fav = JSON.parse(ManageLocalStorage.get('allFavourites'))
-        let curUser = JSON.parse(ManageLocalStorage.get('currentUser')).email
+        let fav = ManageLocalStorage.get('allFavourites') ?  JSON.parse(ManageLocalStorage.get('allFavourites')): {}
+        let curUser = ManageLocalStorage.get('currentUser') ? JSON.parse(ManageLocalStorage.get('currentUser')).email : {}
         if(fav !== null){
             dispatch({type: ACTION.FAVOURITES, payload: fav[curUser] ? fav[curUser] : []})
         }
+        let loginStatus = ManageLocalStorage.get('isLogin')
+        loginStatus && dispatch({type: ACTION.ISLOGIN, payload: JSON.parse(loginStatus)})
     }, [])
 
+    useEffect(()=>{
+        let loginStatus = ManageLocalStorage.get('isLogin')
+        loginStatus && dispatch({type: ACTION.ISLOGIN, payload: JSON.parse(loginStatus)})
+    }, [state.isLogin])
 
 
     return (

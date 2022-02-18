@@ -7,22 +7,38 @@ import Profile from '../pages/Profile/Profile'
 export const routes = [
     {
         path: '/login',
-        component: MainPage
+        component: MainPage,
+        isPrivate : false
+    },   
+    {
+        path: '/',
+        component: MainPage,
+        isPrivate : false
     },
     {
         path: '/home',
-        component: Home
+        component: Home,
+        isPrivate : true
     },
     {
         path: '/profile',
-        component: Profile
+        component: Profile,
+        isPrivate : true
     },
     {
         path: '/favourites',
-        component: Favourites
+        component: Favourites,
+        isPrivate : true
+    }
+    ,
+    {
+        path: '*',
+        component: MainPage,
+        isPrivate : false
     },
     {
-        path: '/*',
-        component: MainPage
+        path: '*',
+        component: Home,
+        isPrivate : true
     }
 ]

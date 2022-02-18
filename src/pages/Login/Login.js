@@ -19,7 +19,7 @@ const Login = () => {
 
 
   useEffect(() => {
-    ManageLocalStorage.set('currentUser', stateData.state.currentUser)
+    // ManageLocalStorage.set('currentUser', stateData.state.currentUser)
   }, [stateData])
 
   const [input, setInput] = useState(initialState)
@@ -49,6 +49,8 @@ const Login = () => {
       ManageLocalStorage.set('currentUser', input)
       let data = getUserDetails(input, user_details)
       stateData.dispatch({ type: ACTION.CURRENTUSER, payload: data })
+      ManageLocalStorage.set('isLogin', true)
+      stateData.dispatch({ type: ACTION.ISLOGIN, payload: true })
       setInput(initialState)
       setOnSubmit(false)
       stateData.navigate('/home')
