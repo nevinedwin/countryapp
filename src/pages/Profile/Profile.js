@@ -10,8 +10,8 @@ import './profile.css'
 const Profile = () => {
     const stateDetails = useContext(StateDetails)
     const allUsers = JSON.parse(ManageLocalStorage.get('userDetails'))
+    const allFav = JSON.parse(ManageLocalStorage.get('allFavourites'))
     const currentUser = JSON.parse(ManageLocalStorage.get('currentUser'))
-    let country = stateDetails.state.currentUser.country
 
 
     const initialValue = {
@@ -110,14 +110,15 @@ const Profile = () => {
     const handleDelete = () => {
         let newData = deleteYourAccount(currentUser, allUsers)
         ManageLocalStorage.set('userDetails', newData)
+        let newFav = deleteYourAccount(currentUser, allFav)
+        ManageLocalStorage.set('allFavourites', newFav)
         stateDetails.dispatch({ type: ACTION.CURRENTUSER, payload: {} })
-        setDeleteMsg(true)
         stateDetails.dispatch({type: ACTION.SUCCESS, payload: 'Deleted Your Account Succesfully'})
-        setTimeout(() => {
-            setDeleteMsg(false)
-            setDeleteAccount(false)
-            stateDetails.navigate('./login')
-        }, 1500);
+        setDeleteAccount(false)
+        ManageLocalStorage.set('isLogin', false)
+        stateDetails.dispatch({ type: ACTION.ISLOGIN, payload: false })
+        ManageLocalStorage.set('currentUser', {})
+        stateDetails.navigate('./login')
     }
 
     return (
