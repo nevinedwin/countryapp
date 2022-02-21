@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import ManageLocalStorage from '../../CommonServices/ManageLocalStorage.js';
-import { deleteYourAccount, getUserDetails, showValidation, updateBoth, updatePassword, updateUsername, validatePassword, validateUsername } from '../../CommonServices/services.js';
-import ButtonWrapper from '../../Components/ButtonWrapper.js';
-import Hoc from '../../Components/Hoc.js'
-import TextInput from '../../Components/TextInput.js';
-import { ACTION, StateDetails } from '../../Core/Context.js';
+import ManageLocalStorage from '../../commonServices/manageLocalStorage.js';
+import { deleteYourAccount, getUserDetails, showValidation, updateBoth, updatePassword, updateUsername, validatePassword, validateUsername } from '../../commonServices/services.js';
+import ButtonWrapper from '../../components/buttonWrapper.js';
+import Hoc from '../../components/hoc.js'
+import TextInput from '../../components/textInput.js';
+import { ACTION, StateDetails } from '../../core/context.js';
 import './profile.css'
 
 const Profile = () => {

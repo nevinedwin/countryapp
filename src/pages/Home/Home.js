@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
-import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
-import { checkValue, getCountriesByContinent, getCountriesById, removeArray } from '../../CommonServices/services';
-import Hoc from '../../Components/Hoc';
-import Pagination from '../../Components/Pagination';
-import { ACTION, StateDetails } from '../../Core/Context';
-import './Home.css'
-import Detailed from '../../Components/Detailed';
+import ManageLocalStorage from '../../commonServices/manageLocalStorage';
+import { checkValue, getCountriesByContinent, getCountriesById, removeArray } from '../../commonServices/services';
+import Hoc from '../../components/hoc';
+import Pagination from '../../components/pagination';
+import { ACTION, StateDetails } from '../../core/context';
+import './home.css'
+import Detailed from '../../components/detailed';
  
 const Home = () => {
 

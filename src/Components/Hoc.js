@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import Sidebar from './Sidebar';
-import '../Assets/Styles/hoc.css'
-import { StateDetails } from '../Core/Context';
+import Navbar from './navbar';
+import Sidebar from './sidebar';
+import '../Assets/styles/hoc.css'
+import { StateDetails } from '../core/context';
 
 let cont = ''
 

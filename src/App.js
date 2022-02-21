@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
+import './app.css';
 import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom'
-import { routes } from './Core/Routes'
-import StateProvider from './Core/Context';
-import { AppRoute } from './Core/AppRoute';
+import { routes } from './core/routes'
+import StateProvider from './core/context';
+import { AppRoute } from './core/appRoute';
 
 
 

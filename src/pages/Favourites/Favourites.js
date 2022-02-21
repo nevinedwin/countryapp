@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
-import { checkValue, getCountriesById, removeArray } from '../../CommonServices/services';
-import Detailed from '../../Components/Detailed';
-import Hoc from '../../Components/Hoc';
-import Pagination from '../../Components/Pagination';
-import { ACTION, StateDetails } from '../../Core/Context';
-import './Favourites.css'
+import ManageLocalStorage from '../../commonServices/manageLocalStorage';
+import { checkValue, getCountriesById, removeArray } from '../../commonServices/services';
+import Detailed from '../../components/detailed';
+import Hoc from '../../components/hoc';
+import Pagination from '../../components/pagination';
+import { ACTION, StateDetails } from '../../core/context';
+import './favourites.css'
 
 const Favourites = () => {
 
@@ -80,7 +80,7 @@ const Favourites = () => {
     
 
     return (
-        <>
+        <>  {statecountries.length=== 0 && <h1 className='NoFav'>Oops..! No Favourites</h1>}
             <div className='home'>
             {showCountry && <>
             <Detailed detailedView={detailedView} handleArrow={handleArrow}/>

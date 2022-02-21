@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../Assets/Styles/pagination.css'
+import '../Assets/styles/pagination.css'
 import { FaStar, FaInfoCircle } from 'react-icons/fa'
-import { StateDetails } from '../Core/Context';
+import { StateDetails } from '../core/context';
 import { useContext } from 'react';
 
 const Pagination = (props) => {

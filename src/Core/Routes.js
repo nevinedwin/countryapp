@@ -1,7 +1,7 @@
-import Favourites from '../pages/Favourites/Favourites'
-import Home from '../pages/Home/Home'
-import MainPage from '../pages/mainPage/MainPage'
-import Profile from '../pages/Profile/Profile'
+import Favourites from '../pages/favourites/favourites'
+import Home from '../pages/home/home'
+import MainPage from '../pages/mainPage/mainPage'
+import Profile from '../pages/profile/profile'
 
 
 export const routes = [

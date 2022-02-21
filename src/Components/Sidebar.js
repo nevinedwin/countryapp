@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
-import '../Assets/Styles/sidebar.css'
-import { continentList } from '../CommonServices/services';
-import { ACTION, StateDetails } from '../Core/Context';
+import '../Assets/styles/sidebar.css'
+import { continentList } from '../commonServices/services';
+import { ACTION, StateDetails } from '../core/context';
 
 const Sidebar = (props) => {
 

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './SignUp.css'
-import TextInput from '../../Components/TextInput'
-import DropdownWrapper from '../../Components/Dropdown';
-import ButtonWrapper from '../../Components/ButtonWrapper'
-import { showValidation, validateEmail, validatePassword, validateUser, validateUsername } from '../../CommonServices/services';
-import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
-import { ACTION, StateDetails } from '../../Core/Context';
+import './signUp.css'
+import TextInput from '../../components/textInput'
+import DropdownWrapper from '../../components/dropdown';
+import ButtonWrapper from '../../components/buttonWrapper'
+import { showValidation, validateEmail, validatePassword, validateUser, validateUsername } from '../../commonServices/services';
+import ManageLocalStorage from '../../commonServices/manageLocalStorage';
+import { ACTION, StateDetails } from '../../core/context';
 
 
 const SignUp = ({goToLogin}) => {

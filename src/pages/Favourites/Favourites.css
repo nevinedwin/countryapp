@@ -60,3 +60,11 @@
     width: 40px;
     height: 40px;
 }
+.NoFav{
+    color: #2f496e;
+    font-weight: 800;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 300px;
+    cursor: default;
+}

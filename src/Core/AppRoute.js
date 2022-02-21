@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Navigate} from 'react-router-dom'
-import { StateDetails } from './Context'
+import { StateDetails } from './context'
 
 export const AppRoute = ({path,component: Component}) => {
 

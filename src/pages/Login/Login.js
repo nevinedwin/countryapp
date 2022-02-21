@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-import ManageLocalStorage from '../../CommonServices/ManageLocalStorage';
-import { getUserDetails, loginIn, showValidation, validateEmail } from '../../CommonServices/services';
-import ButtonWrapper from '../../Components/ButtonWrapper';
-import TextInput from '../../Components/TextInput';
-import { ACTION, StateDetails } from '../../Core/Context';
-import './Login.css'
+import ManageLocalStorage from '../../commonServices/manageLocalStorage';
+import { getUserDetails, loginIn, showValidation, validateEmail } from '../../commonServices/services';
+import ButtonWrapper from '../../components/buttonWrapper';
+import TextInput from '../../components/textInput';
+import { ACTION, StateDetails } from '../../core/context';
+import './login.css'
 
 const Login = () => {
 

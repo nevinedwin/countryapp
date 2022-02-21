@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
-import Login from '../Login/Login';
-import SignUp from '../Signup/SignUp'
+import Login from '../login/login';
+import SignUp from '../signup/signUp'
 import { FaUser, FaEdit, FaLock } from 'react-icons/fa'
-import './MainPage.css'
+import './mainPage.css'
 
 const ACTION = {
     LOGIN: 'login',

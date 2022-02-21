@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
-import { getCountryDetails, getUserDetails } from '../CommonServices/services';
+import ManageLocalStorage from '../commonServices/manageLocalStorage';
+import { getCountryDetails, getUserDetails } from '../commonServices/services';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

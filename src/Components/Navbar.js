@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import '../Assets/Styles/Navbar.css'
+import '../Assets/styles/navbar.css'
 import { NavLink, useLocation } from 'react-router-dom'
-import { ACTION, StateDetails } from '../Core/Context';
+import { ACTION, StateDetails } from '../core/context';
 import {ImMenu} from 'react-icons/im'
-import ManageLocalStorage from '../CommonServices/ManageLocalStorage';
+import ManageLocalStorage from '../commonServices/manageLocalStorage';
 
 const Navbar = () => {
 

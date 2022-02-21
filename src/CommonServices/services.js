@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import Validationcomponents from '../Components/Validationcomponents'
+import Validationcomponents from '../components/validationcomponents'
 
 export const getCountryDetails = async () => {
     return axios.get('https://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/Geoenrichment/countries?f=pjson')
