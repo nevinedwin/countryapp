@@ -102,7 +102,7 @@ const SignUp = ({goToLogin}) => {
                             autoComplete='off'
                             onChange={(e) => handleChange(e)}
                         />
-                        <label htmlFor='username'>Username</label>
+                        <label htmlFor='username'>Display Name</label>
                         {onSubmit && !validateUsername(input.username) ? showValidation(true, 'Invalid Username') : showValidation(false)}
                     </span>
                     <span className="p-float-label signup-input">
