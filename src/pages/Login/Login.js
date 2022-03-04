@@ -53,6 +53,7 @@ const Login = () => {
       stateData.dispatch({ type: ACTION.ISLOGIN, payload: true })
       setInput(initialState)
       setOnSubmit(false)
+      stateData.dispatch({type: ACTION.CONTINENT, payload: "Africa"})
       stateData.navigate('/home')
     }else{
       setOnSubmit(false)

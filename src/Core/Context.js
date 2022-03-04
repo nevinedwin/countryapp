@@ -85,10 +85,14 @@ const StateProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(reducer, initialValue)
 
+    console.log(state)
+
+
     useEffect(() => {
-        state.countryDetails.length === 0 && getCountryDetails().then(res => {
+        state.isLogin && state.countryDetails.length === 0 && getCountryDetails().then(res => {
             dispatch({ type: ACTION.COUNTRYDETAILS, payload: res.data.countries })
         })
+        dispatch({type: ACTION.CONTINENT, payload : "Africa"})
         let data = getUserDetails(ManageLocalStorage.get('currentUser') ? JSON.parse(ManageLocalStorage.get('currentUser')): {}, ManageLocalStorage.get('userDetails') ? JSON.parse(ManageLocalStorage.get('userDetails')): {})
         data && dispatch({ type: ACTION.CURRENTUSER, payload: data })
 
@@ -102,6 +106,9 @@ const StateProvider = ({ children }) => {
     }, [])
 
     useEffect(()=>{
+        state.isLogin && state.countryDetails.length === 0 && getCountryDetails().then(res => {
+            dispatch({ type: ACTION.COUNTRYDETAILS, payload: res.data.countries })
+        })
         let loginStatus = ManageLocalStorage.get('isLogin')
         loginStatus && dispatch({type: ACTION.ISLOGIN, payload: JSON.parse(loginStatus)})
     }, [state.isLogin])
